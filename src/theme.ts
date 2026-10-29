@@ -35,3 +35,10 @@ export const fonts = {
 
 // Lịch nhắc đang tắt
 export const disabledOpacity = 0.65;
+
+// Điều hướng
+export const layout = {
+  sidebarWidth: 222,
+  // Từ chiều rộng này trở lên dùng thanh bên (iPad); nhỏ hơn dùng tab bar dưới (iPhone)
+  wideBreakpoint: 700,
+} as const;

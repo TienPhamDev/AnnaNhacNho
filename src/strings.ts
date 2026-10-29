@@ -7,3 +7,9 @@ export const strings = {
     settings: 'Cài đặt',
   },
 };
+
+export const navStrings = {
+  // Tên hiển thị tạm ở thanh bên cho đến khi có dữ liệu Cài đặt
+  childFallback: 'Bé',
+  childLabel: 'Hồ sơ của con',
+};
