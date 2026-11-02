@@ -11,6 +11,10 @@ export const colors = {
   orangeSoft: '#ffe5d4',
   greenSoft: '#e5f1e7',
   greenText: '#577c60',
+  white: '#ffffff',
+  divider: '#ede6f0',
+  switchOff: '#e4dfe9',
+  todayLabel: '#eee5ff',
   // Nền màn "Đến giờ học" (gradient dọc)
   alarmGradient: ['#e3d8f1', '#f4ecf1', '#d5c5eb'],
 } as const;
