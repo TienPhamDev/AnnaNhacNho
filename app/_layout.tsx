@@ -1,6 +1,7 @@
 import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 import { SQLiteProvider } from 'expo-sqlite';
+import { SettingsProvider } from '../src/SettingsContext';
 import { DATABASE_NAME, migrateDatabase } from '../src/db/database';
 import {
   Nunito_400Regular,
@@ -24,7 +25,9 @@ export default function RootLayout() {
   // SQLiteProvider mở database và chạy migrate trước khi hiện màn hình
   return (
     <SQLiteProvider databaseName={DATABASE_NAME} onInit={migrateDatabase}>
-      <Stack screenOptions={{ headerShown: false }} />
+      <SettingsProvider>
+        <Stack screenOptions={{ headerShown: false }} />
+      </SettingsProvider>
     </SQLiteProvider>
   );
 }

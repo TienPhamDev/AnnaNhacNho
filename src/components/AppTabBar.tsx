@@ -3,6 +3,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { BottomTabBarProps } from 'expo-router/build/layouts/Tabs';
 import { BellRing, Image as ImageIcon, Settings2 } from 'lucide-react-native';
 import { colors, fonts, layout, radius } from '../theme';
+import { useSettings } from '../SettingsContext';
 import { navStrings, strings } from '../strings';
 
 // Icon và nhãn cho từng tab, theo đúng thứ tự route
@@ -17,6 +18,9 @@ type Props = BottomTabBarProps & { wide: boolean };
 // Một thanh điều hướng, hai kiểu hiển thị: tab bar dưới (iPhone) / thanh bên trái (iPad)
 export function AppTabBar({ state, emitter, navigateToTab, wide }: Props) {
   const insets = useSafeAreaInsets();
+  const { settings } = useSettings();
+  // Tên con lấy từ Cài đặt; chưa nhập thì dùng chữ tạm
+  const childName = settings.childName.trim() || navStrings.childFallback;
 
   const items = state.routes.map((route, i) => {
     const tab = TABS[route.name as keyof typeof TABS];
@@ -51,9 +55,9 @@ export function AppTabBar({ state, emitter, navigateToTab, wide }: Props) {
         {/* Hồ sơ của con ở cuối thanh bên */}
         <View style={styles.profile}>
           <View style={styles.avatar}>
-            <Text style={styles.avatarText}>{navStrings.childFallback.charAt(0)}</Text>
+            <Text style={styles.avatarText}>{childName.charAt(0).toUpperCase()}</Text>
           </View>
-          <Text style={styles.profileText}>{navStrings.childLabel}</Text>
+          <Text style={styles.profileText} numberOfLines={1}>{childName}</Text>
         </View>
       </View>
     );
@@ -103,5 +107,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   avatarText: { fontFamily: fonts.extraBold, fontSize: 18, color: colors.text },
-  profileText: { fontFamily: fonts.semiBold, fontSize: 14, color: colors.textSecondary },
+  profileText: { flex: 1, fontFamily: fonts.semiBold, fontSize: 14, color: colors.textSecondary },
 });

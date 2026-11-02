@@ -11,5 +11,10 @@ export const strings = {
 export const navStrings = {
   // Tên hiển thị tạm ở thanh bên cho đến khi có dữ liệu Cài đặt
   childFallback: 'Bé',
-  childLabel: 'Hồ sơ của con',
+};
+
+export const settingsStrings = {
+  childNameLabel: 'Tên của con',
+  childNamePlaceholder: 'Nhập tên con',
+  childNameHint: 'Tên này hiện trong lời chào và thanh bên.',
 };
