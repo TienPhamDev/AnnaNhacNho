@@ -18,3 +18,15 @@ export const settingsStrings = {
   childNamePlaceholder: 'Nhập tên con',
   childNameHint: 'Tên này hiện trong lời chào và thanh bên.',
 };
+
+export const photoStrings = {
+  title: 'Ảnh của bạn',
+  subtitle: 'Ảnh hiện toàn màn hình khi đến giờ học để nhắc con.',
+  add: 'Thêm ảnh',
+  empty: 'Chưa có ảnh nào. Thêm ảnh của bạn để nhắc con nhé!',
+  deleteTitle: 'Xóa ảnh này?',
+  deleteMessage: 'Các lịch nhắc đang dùng ảnh này sẽ chuyển sang không có ảnh.',
+  delete: 'Xóa',
+  cancel: 'Hủy',
+  addError: 'Không thêm được ảnh. Bạn thử lại nhé.',
+};

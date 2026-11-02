@@ -24,6 +24,14 @@ const MIGRATIONS: string[] = [
     value TEXT NOT NULL
   );
   `,
+  // Ảnh của phụ huynh: chỉ lưu tên file trong thư mục app (đường dẫn đầy đủ tính lúc đọc)
+  `
+  CREATE TABLE photos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    file_name TEXT NOT NULL,
+    created_at INTEGER NOT NULL
+  );
+  `,
 ];
 
 // Dùng làm onInit của SQLiteProvider: tạo / nâng cấp bảng theo PRAGMA user_version

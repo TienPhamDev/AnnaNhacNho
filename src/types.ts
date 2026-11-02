@@ -25,3 +25,10 @@ export type Settings = {
   defaultSound: string;
   snoozeMinutes: number;
 };
+
+// Ảnh phụ huynh đã thêm (đã copy vào thư mục của app)
+export type Photo = {
+  id: number;
+  uri: string;
+  createdAt: number;
+};
