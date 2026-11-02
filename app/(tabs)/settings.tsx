@@ -1,5 +1,6 @@
 import { ScrollView, StyleSheet, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { NotificationPermissionRow } from '../../src/components/NotificationPermissionRow';
 import { ChildNameField } from '../../src/components/ChildNameField';
 import { colors, fonts } from '../../src/theme';
 import { strings } from '../../src/strings';
@@ -15,6 +16,7 @@ export default function SettingsScreen() {
     >
       <Text style={styles.title}>{strings.tabs.settings}</Text>
       <ChildNameField />
+      <NotificationPermissionRow />
     </ScrollView>
   );
 }

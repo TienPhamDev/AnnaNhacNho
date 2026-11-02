@@ -30,3 +30,13 @@ export const photoStrings = {
   cancel: 'Hủy',
   addError: 'Không thêm được ảnh. Bạn thử lại nhé.',
 };
+
+export const notificationStrings = {
+  title: 'Đến giờ học rồi!',
+  statusLabel: 'Thông báo',
+  granted: 'Đã bật',
+  denied: 'Chưa bật',
+  hint: 'Cần bật thông báo để app nhắc con đúng giờ.',
+  enable: 'Bật thông báo',
+  openSettings: 'Mở Cài đặt của máy',
+};
