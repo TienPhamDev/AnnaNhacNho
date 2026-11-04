@@ -2,6 +2,7 @@ import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
 import { SQLiteProvider, useSQLiteContext } from 'expo-sqlite';
+import { NotificationRouter } from '../src/NotificationRouter';
 import { setupNotificationHandler } from '../src/notifications';
 import { syncAllReminders } from '../src/reminderService';
 import { SettingsProvider } from '../src/SettingsContext';
@@ -41,8 +42,10 @@ export default function RootLayout() {
     <SQLiteProvider databaseName={DATABASE_NAME} onInit={migrateDatabase}>
       <SettingsProvider>
         <NotificationSync />
+        <NotificationRouter />
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="reminder" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="alarm" options={{ presentation: 'fullScreenModal', animation: 'fade' }} />
         </Stack>
       </SettingsProvider>
     </SQLiteProvider>

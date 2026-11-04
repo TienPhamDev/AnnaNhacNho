@@ -6,11 +6,11 @@ import { notificationStrings } from './strings';
 // Dữ liệu đính kèm thông báo, để biết mở "Đến giờ học" cho lịch nhắc nào
 export type ReminderNotificationData = { reminderId: number; snooze?: boolean };
 
-// Khi app đang mở vẫn hiện banner + phát tiếng (mặc định iOS là im lặng)
+// Khi app đang mở: phát tiếng nhưng không hiện banner, vì app mở thẳng màn "Đến giờ học"
 export function setupNotificationHandler() {
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
-      shouldShowBanner: true,
+      shouldShowBanner: false,
       shouldShowList: true,
       shouldPlaySound: true,
       shouldSetBadge: false,
@@ -88,4 +88,11 @@ export async function scheduleSnooze(reminder: Reminder, minutes: number): Promi
 // Xóa mọi thông báo đã lên lịch (dùng khi đồng bộ lại từ đầu)
 export function cancelAllNotifications() {
   return Notifications.cancelAllScheduledNotificationsAsync();
+}
+
+// Hủy các thông báo "nhắc lại" đang chờ của một lịch nhắc (không đụng tới thông báo hàng tuần)
+export async function cancelSnoozes(reminderId: number) {
+  const pending = await Notifications.getAllScheduledNotificationsAsync();
+  const snoozes = pending.filter((n) => n.content.data?.snooze && Number(n.content.data?.reminderId) === reminderId);
+  await Promise.all(snoozes.map((n) => Notifications.cancelScheduledNotificationAsync(n.identifier)));
 }

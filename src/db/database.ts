@@ -32,6 +32,15 @@ const MIGRATIONS: string[] = [
     created_at INTEGER NOT NULL
   );
   `,
+  // Mỗi lần con bấm "Con học ngay!" ghi một dòng (day = ngày dạng YYYY-MM-DD)
+  `
+  CREATE TABLE study_logs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    reminder_id INTEGER NOT NULL,
+    day TEXT NOT NULL,
+    done_at INTEGER NOT NULL
+  );
+  `,
 ];
 
 // Dùng làm onInit của SQLiteProvider: tạo / nâng cấp bảng theo PRAGMA user_version

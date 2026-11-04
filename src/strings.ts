@@ -112,3 +112,14 @@ export const editStrings = {
   errorDays: 'Hãy chọn ít nhất một ngày lặp lại.',
   errorSave: 'Không lưu được lịch nhắc. Bạn thử lại nhé.',
 };
+
+export const alarmStrings = {
+  badge: 'ĐẾN GIỜ HỌC RỒI',
+  photoPlaceholderTitle: 'Ảnh của phụ huynh',
+  photoPlaceholderText: 'Ảnh bạn chọn sẽ hiện toàn màn hình\nmỗi khi đến giờ nhắc học.',
+  studyNow: 'Con học ngay!',
+  snooze: (minutes: number) => `Nhắc lại sau ${minutes} phút`,
+  previewSubject: 'Làm bài tập Toán',
+  previewButton: 'Xem thử màn "Đến giờ học"',
+  previewHint: 'Mở thử màn hình báo thức mà không cần chờ đến giờ.',
+};

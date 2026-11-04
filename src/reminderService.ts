@@ -8,7 +8,7 @@ import {
   setReminderEnabled,
   updateReminder,
 } from './db/reminders';
-import { cancelAllNotifications, cancelNotifications, requestNotificationPermission, rescheduleReminder } from './notifications';
+import { cancelAllNotifications, cancelNotifications, cancelSnoozes, requestNotificationPermission, rescheduleReminder } from './notifications';
 import type { Reminder, ReminderInput } from './types';
 
 // Các màn hình chỉ gọi file này: ghi SQLite và cập nhật thông báo luôn đi cùng nhau,
@@ -46,6 +46,7 @@ export async function toggleReminder(db: SQLiteDatabase, id: number, enabled: bo
 export async function removeReminder(db: SQLiteDatabase, id: number) {
   const reminder = await getReminder(db, id);
   if (reminder) await cancelNotifications(reminder.notificationIds);
+  await cancelSnoozes(id);
   await deleteReminder(db, id);
 }
 
