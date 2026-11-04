@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { colors, disabledOpacity, fonts, radius } from '../theme';
 import { homeStrings } from '../strings';
 import { SUBJECTS, summarizeWeekdays } from '../reminderUtils';
@@ -6,16 +6,20 @@ import { formatTime } from '../dateUtils';
 import { ToggleSwitch } from './ToggleSwitch';
 import type { Reminder } from '../types';
 
-type Props = { reminder: Reminder; wide: boolean; onToggle: (enabled: boolean) => void };
+type Props = { reminder: Reminder; wide: boolean; onPress: () => void; onToggle: (enabled: boolean) => void };
 
 // Một dòng lịch nhắc: icon môn, giờ lớn, tên, lịch lặp · thời lượng, công tắc
-export function ReminderRow({ reminder, wide, onToggle }: Props) {
+export function ReminderRow({ reminder, wide, onPress, onToggle }: Props) {
   const { Icon, background } = SUBJECTS[reminder.subject];
   const time = formatTime(reminder.hour, reminder.minute);
   const summary = `${summarizeWeekdays(reminder.weekdays)} · ${homeStrings.minutes(reminder.durationMin)}`;
 
   return (
-    <View style={[styles.row, wide && styles.rowWide, !reminder.enabled && styles.rowOff]}>
+    <Pressable
+      onPress={onPress}
+      accessibilityRole="button"
+      style={[styles.row, wide && styles.rowWide, !reminder.enabled && styles.rowOff]}
+    >
       <View style={[styles.icon, wide && styles.iconWide, { backgroundColor: background }]}>
         <Icon size={23} color={colors.textSecondary} />
       </View>
@@ -36,7 +40,7 @@ export function ReminderRow({ reminder, wide, onToggle }: Props) {
         </Text>
       )}
       <ToggleSwitch value={reminder.enabled} onValueChange={onToggle} accessibilityLabel={reminder.title} />
-    </View>
+    </Pressable>
   );
 }
 

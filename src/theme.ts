@@ -15,6 +15,9 @@ export const colors = {
   divider: '#ede6f0',
   switchOff: '#e4dfe9',
   todayLabel: '#eee5ff',
+  wheelMuted: '#ada0ba',
+  counter: '#a298ae',
+  danger: '#c4513f',
   // Nền màn "Đến giờ học" (gradient dọc)
   alarmGradient: ['#e3d8f1', '#f4ecf1', '#d5c5eb'],
 } as const;

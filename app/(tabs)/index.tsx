@@ -67,8 +67,8 @@ export default function RemindersScreen() {
     : homeStrings.listTitleDay(`${selected.getDate()}/${selected.getMonth() + 1}`);
 
   const goToPhotos = () => router.navigate('/photos');
-  // TODO: mở màn "Chỉnh lịch nhắc" (modal) khi màn đó được làm
-  const addReminder = () => {};
+  const addReminder = () => router.push('/reminder');
+  const editReminder = (id: number) => router.push({ pathname: '/reminder', params: { id: String(id) } });
 
   const addButton = (
     <Pressable
@@ -108,7 +108,13 @@ export default function RemindersScreen() {
       </View>
       {dayReminders.length === 0 && <Text style={styles.empty}>{homeStrings.emptyList}</Text>}
       {dayReminders.map((reminder) => (
-        <ReminderRow key={reminder.id} reminder={reminder} wide={wide} onToggle={(on) => onToggle(reminder, on)} />
+        <ReminderRow
+          key={reminder.id}
+          reminder={reminder}
+          wide={wide}
+          onPress={() => editReminder(reminder.id)}
+          onToggle={(on) => onToggle(reminder, on)}
+        />
       ))}
     </View>
   );

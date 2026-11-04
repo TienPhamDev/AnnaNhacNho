@@ -41,7 +41,9 @@ export default function RootLayout() {
     <SQLiteProvider databaseName={DATABASE_NAME} onInit={migrateDatabase}>
       <SettingsProvider>
         <NotificationSync />
-        <Stack screenOptions={{ headerShown: false }} />
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="reminder" options={{ presentation: 'modal' }} />
+        </Stack>
       </SettingsProvider>
     </SQLiteProvider>
   );

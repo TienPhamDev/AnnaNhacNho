@@ -15,6 +15,17 @@ export const SUBJECTS: Record<Subject, { Icon: IconType; background: string; che
   other: { Icon: AlarmClock, background: colors.yellowSoft, cheer: homeStrings.cheer.other },
 };
 
+export const SUBJECT_ORDER: Subject[] = ['math', 'vietnamese', 'reading', 'other'];
+
+// Đoán môn từ tên lịch nhắc để tự chọn icon (phụ huynh vẫn đổi tay được)
+export function detectSubject(title: string): Subject {
+  const t = title.toLowerCase();
+  if (t.includes('toán')) return 'math';
+  if (/tiếng việt|chính tả|tập viết|văn/.test(t)) return 'vietnamese';
+  if (/đọc|sách/.test(t)) return 'reading';
+  return 'other';
+}
+
 const DAY_NAMES = ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'Chủ nhật'];
 
 // "Mỗi ngày", "Thứ 2 – Thứ 6", "Thứ 2, Thứ 4, Chủ nhật"

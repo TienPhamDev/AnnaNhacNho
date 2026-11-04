@@ -2,11 +2,10 @@ import { useCallback, useState } from 'react';
 import { Alert, ScrollView, StyleSheet, Text, useWindowDimensions } from 'react-native';
 import { useFocusEffect } from 'expo-router';
 import { useSQLiteContext } from 'expo-sqlite';
-import * as ImagePicker from 'expo-image-picker';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { PhotoGrid } from '../../src/components/PhotoGrid';
-import { addPhoto, deletePhoto, getPhotos } from '../../src/db/photos';
-import { savePhotoFile } from '../../src/photoFiles';
+import { deletePhoto, getPhotos } from '../../src/db/photos';
+import { pickAndAddPhoto } from '../../src/pickPhoto';
 import { colors, fonts, layout } from '../../src/theme';
 import { photoStrings } from '../../src/strings';
 import type { Photo } from '../../src/types';
@@ -29,12 +28,7 @@ export default function PhotosScreen() {
 
   const pickPhoto = async () => {
     try {
-      // Thư viện ảnh iOS không cần xin quyền riêng khi chọn bằng bộ chọn hệ thống
-      const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: 'images', quality: 0.9 });
-      if (result.canceled) return;
-      const fileName = await savePhotoFile(result.assets[0].uri);
-      await addPhoto(db, fileName);
-      await load();
+      if (await pickAndAddPhoto(db)) await load();
     } catch {
       Alert.alert(photoStrings.addError);
     }
