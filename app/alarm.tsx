@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AlarmClockPlus, BellRing, Check } from 'lucide-react-native';
 import { AlarmBackground } from '../src/components/AlarmBackground';
 import { AlarmPhotoPlaceholder } from '../src/components/AlarmPhotoPlaceholder';
+import { useAlarmSound } from '../src/alarmSound';
 import { formatLongDate, formatTime } from '../src/dateUtils';
 import { getPhotos } from '../src/db/photos';
 import { getReminder } from '../src/db/reminders';
@@ -32,6 +33,9 @@ export default function AlarmScreen() {
 
   const [data, setData] = useState<View_ | null>(null);
   const [now, setNow] = useState(() => new Date());
+  // Chuông reo lặp lại cho đến khi bấm một trong hai nút (hoặc rời màn hình)
+  const [ringing, setRinging] = useState(true);
+  useAlarmSound(ringing && data !== null);
 
   useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), 15000);
@@ -67,7 +71,10 @@ export default function AlarmScreen() {
     })();
   }, [db, reminderId, settings.childName, router]);
 
-  const leave = () => router.replace('/');
+  const leave = () => {
+    setRinging(false);
+    router.replace('/');
+  };
 
   // "Con học ngay!": ghi đã học, hủy các lần nhắc lại đang chờ
   const studyNow = async () => {

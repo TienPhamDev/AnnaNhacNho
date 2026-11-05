@@ -6,13 +6,18 @@ import { notificationStrings } from './strings';
 // Dữ liệu đính kèm thông báo, để biết mở "Đến giờ học" cho lịch nhắc nào
 export type ReminderNotificationData = { reminderId: number; snooze?: boolean };
 
-// Khi app đang mở: phát tiếng nhưng không hiện banner, vì app mở thẳng màn "Đến giờ học"
+// Tên file chuông đã khai báo trong plugin expo-notifications (app.json).
+// Máy không có file này (ví dụ chạy trong Expo Go) thì iOS phát âm thông báo mặc định.
+const NOTIFICATION_SOUND = 'chime.wav';
+
+// Khi app đang mở: không hiện banner và không phát tiếng, vì app mở thẳng màn "Đến giờ học"
+// và màn đó tự phát chuông lặp lại.
 export function setupNotificationHandler() {
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
       shouldShowBanner: false,
       shouldShowList: true,
-      shouldPlaySound: true,
+      shouldPlaySound: false,
       shouldSetBadge: false,
     }),
   });
@@ -49,7 +54,7 @@ function contentFor(reminder: Reminder, snooze = false) {
   return {
     title: notificationStrings.title,
     body: reminder.message.trim() || reminder.title,
-    sound: true,
+    sound: NOTIFICATION_SOUND,
     data,
   };
 }
