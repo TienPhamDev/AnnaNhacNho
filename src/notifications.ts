@@ -1,3 +1,4 @@
+import Constants, { ExecutionEnvironment } from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import { Linking } from 'react-native';
 import type { Reminder } from './types';
@@ -7,8 +8,10 @@ import { notificationStrings } from './strings';
 export type ReminderNotificationData = { reminderId: number; snooze?: boolean };
 
 // Tên file chuông đã khai báo trong plugin expo-notifications (app.json).
-// Máy không có file này (ví dụ chạy trong Expo Go) thì iOS phát âm thông báo mặc định.
-const NOTIFICATION_SOUND = 'chime.wav';
+// Expo Go không chứa file này (chỉ có trong development build / bản cài thật),
+// nên trong Expo Go dùng âm thông báo mặc định để tránh báo lỗi.
+const IS_EXPO_GO = Constants.executionEnvironment === ExecutionEnvironment.StoreClient;
+const NOTIFICATION_SOUND = IS_EXPO_GO ? 'default' : 'chime.wav';
 
 // Khi app đang mở: không hiện banner và không phát tiếng, vì app mở thẳng màn "Đến giờ học"
 // và màn đó tự phát chuông lặp lại.
